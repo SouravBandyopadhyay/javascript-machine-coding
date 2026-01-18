@@ -16,11 +16,6 @@ CORE FUNCTIONALITY:
 - ParkingTicket: Issued when vehicle parks, used to calculate fee on exit
 */
 
-/**TODO -
- *
- *
- *
- */
 enum VehicleType {
   CAR = "CAR",
   TRUCK = "TRUCK",
