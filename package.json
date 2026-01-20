@@ -1,0 +1,25 @@
+{
+  "name": "javascript-machine-coding",
+  "version": "1.0.0",
+  "description": "JavaScript machine coding round question bank",
+  "main": "lruCache.js",
+  "scripts": {
+    "practice": "node -r ts-node/register LLD/practice.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SouravBandyopadhyay/javascript-machine-coding.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SouravBandyopadhyay/javascript-machine-coding/issues"
+  },
+  "homepage": "https://github.com/SouravBandyopadhyay/javascript-machine-coding#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
