@@ -1,5 +1,5 @@
 /***********************************************************************
- * SECTION: Snake and Food Game (Low Level Design) - 
+ * SECTION: Snake and Food Game (Low Level Design) -
  * NOTE: Zomato LLD
  *
  * GOAL:
@@ -29,15 +29,15 @@
  ***********************************************************************/
 
 enum Direction {
-  UP = "UP",
-  DOWN = "DOWN",
-  LEFT = "LEFT",
-  RIGHT = "RIGHT",
+  UP = 'UP',
+  DOWN = 'DOWN',
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
 }
 
 enum GameStatus {
-  IN_PROGRESS = "IN_PROGRESS",
-  GAME_OVER = "GAME_OVER",
+  IN_PROGRESS = 'IN_PROGRESS',
+  GAME_OVER = 'GAME_OVER',
 }
 
 /***********************************************************************
@@ -54,7 +54,7 @@ enum GameStatus {
 class Position {
   constructor(
     public readonly row: number,
-    public readonly col: number
+    public readonly col: number,
   ) {}
 
   equals(other: Position): boolean {
@@ -134,7 +134,7 @@ class Snake {
   // Check if snake collides with itself
   hasSelfCollision(): boolean {
     const [head, ...body] = this.body;
-    return body.some(segment => segment.equals(head));
+    return body.some((segment) => segment.equals(head));
   }
 
   // Expose body for board rendering / collision checks
@@ -182,12 +182,10 @@ class FoodGenerator {
     while (true) {
       const position = new Position(
         Math.floor(Math.random() * boardSize),
-        Math.floor(Math.random() * boardSize)
+        Math.floor(Math.random() * boardSize),
       );
 
-      const isOnSnake = snakeBody.some(segment =>
-        segment.equals(position)
-      );
+      const isOnSnake = snakeBody.some((segment) => segment.equals(position));
 
       if (!isOnSnake) {
         return new Food(position);
@@ -213,18 +211,18 @@ class SnakeGame {
 
   constructor(
     private readonly board: Board,
-    private readonly snake: Snake
+    private readonly snake: Snake,
   ) {
     this.food = FoodGenerator.generate(
       this.getBoardSize(),
-      this.snake.getBody()
+      this.snake.getBody(),
     );
   }
 
   // Advance game by one step
   moveSnake(direction: Direction): void {
     if (this.status === GameStatus.GAME_OVER) {
-      throw new Error("Game is already over");
+      throw new Error('Game is already over');
     }
 
     this.snake.changeDirection(direction);
@@ -233,7 +231,7 @@ class SnakeGame {
 
     // Wall collision
     if (this.board.isOutside(nextHead)) {
-      this.endGame("Snake hit the wall");
+      this.endGame('Snake hit the wall');
       return;
     }
 
@@ -244,7 +242,7 @@ class SnakeGame {
 
     // Self collision
     if (this.snake.hasSelfCollision()) {
-      this.endGame("Snake collided with itself");
+      this.endGame('Snake collided with itself');
       return;
     }
 
@@ -252,7 +250,7 @@ class SnakeGame {
     if (eatsFood) {
       this.food = FoodGenerator.generate(
         this.getBoardSize(),
-        this.snake.getBody()
+        this.snake.getBody(),
       );
     }
 
@@ -271,14 +269,14 @@ class SnakeGame {
 
   private endGame(reason: string): void {
     this.status = GameStatus.GAME_OVER;
-    console.log("GAME OVER:", reason);
+    console.log('GAME OVER:', reason);
   }
 
   // Debug / demo output
   private printState(): void {
-    console.log("Snake:", this.snake.getBody());
-    console.log("Food:", this.food.position);
-    console.log("------------");
+    console.log('Snake:', this.snake.getBody());
+    console.log('Food:', this.food.position);
+    console.log('------------');
   }
 }
 

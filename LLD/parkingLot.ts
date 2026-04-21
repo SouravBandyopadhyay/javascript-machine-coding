@@ -24,15 +24,15 @@
  ***********************************************************************/
 
 enum VehicleType {
-  CAR = "CAR",
-  BIKE = "BIKE",
-  TRUCK = "TRUCK",
+  CAR = 'CAR',
+  BIKE = 'BIKE',
+  TRUCK = 'TRUCK',
 }
 
 enum SpotType {
-  BIKE = "BIKE",
-  COMPACT = "COMPACT",
-  LARGE = "LARGE",
+  BIKE = 'BIKE',
+  COMPACT = 'COMPACT',
+  LARGE = 'LARGE',
 }
 
 /***********************************************************************
@@ -46,7 +46,7 @@ enum SpotType {
 abstract class Vehicle {
   constructor(
     public readonly vehicleNumber: string, // immutable identity
-    public readonly type: VehicleType       // fixed vehicle type
+    public readonly type: VehicleType, // fixed vehicle type
   ) {}
 }
 
@@ -91,7 +91,7 @@ class ParkingSpot {
 
   constructor(
     public readonly spotId: string, // unique identifier
-    public readonly type: SpotType  // spot size/type
+    public readonly type: SpotType, // spot size/type
   ) {}
 
   // Check if the spot is currently free
@@ -121,7 +121,7 @@ class ParkingSpot {
   // Park vehicle after validating rules
   parkVehicle(vehicle: Vehicle): void {
     if (!this.canFitVehicle(vehicle)) {
-      throw new Error("Vehicle cannot fit in the parking spot");
+      throw new Error('Vehicle cannot fit in the parking spot');
     }
     this.parkedVehicle = vehicle;
   }
@@ -143,7 +143,7 @@ class ParkingSpot {
 class ParkingFloor {
   constructor(
     private readonly floorNumber: number,
-    public readonly spots: ParkingSpot[]
+    public readonly spots: ParkingSpot[],
   ) {}
 
   // Find first available compatible spot
@@ -171,7 +171,7 @@ class Ticket {
   constructor(
     public readonly vehicle: Vehicle,
     public readonly spot: ParkingSpot,
-    public readonly ticketId: string
+    public readonly ticketId: string,
   ) {
     this.entryTime = new Date(); // captured at creation
   }
@@ -203,7 +203,7 @@ class ParkingLot {
       }
     }
 
-    throw new Error("No available parking spot for this vehicle type");
+    throw new Error('No available parking spot for this vehicle type');
   }
 
   // Unpark vehicle using ticket
@@ -212,19 +212,17 @@ class ParkingLot {
   }
 }
 
-
-
 // SECTION : Console for Logging out
 // 1️⃣ Create parking spots
 const floor1Spots: ParkingSpot[] = [
-  new ParkingSpot("F1-B1", SpotType.BIKE),
-  new ParkingSpot("F1-C1", SpotType.COMPACT),
-  new ParkingSpot("F1-L1", SpotType.LARGE),
+  new ParkingSpot('F1-B1', SpotType.BIKE),
+  new ParkingSpot('F1-C1', SpotType.COMPACT),
+  new ParkingSpot('F1-L1', SpotType.LARGE),
 ];
 
 const floor2Spots: ParkingSpot[] = [
-  new ParkingSpot("F2-C1", SpotType.COMPACT),
-  new ParkingSpot("F2-L1", SpotType.LARGE),
+  new ParkingSpot('F2-C1', SpotType.COMPACT),
+  new ParkingSpot('F2-L1', SpotType.LARGE),
 ];
 
 // 2️⃣ Create parking floors
@@ -235,30 +233,30 @@ const floor2 = new ParkingFloor(2, floor2Spots);
 const parkingLot = new ParkingLot([floor1, floor2]);
 
 // 4️⃣ Create vehicles
-const bike = new Bike("KA-01-BIKE-1234");
-const car = new Car("KA-01-CAR-5678");
-const truck = new Truck("KA-01-TRUCK-9999");
+const bike = new Bike('KA-01-BIKE-1234');
+const car = new Car('KA-01-CAR-5678');
+const truck = new Truck('KA-01-TRUCK-9999');
 
 // 5️⃣ Park vehicles
-console.log("---- Parking Vehicles ----");
+console.log('---- Parking Vehicles ----');
 
 const bikeTicket = parkingLot.parkVehicle(bike);
 console.log(
-  `Bike parked | Ticket: ${bikeTicket.ticketId} | Spot: ${bikeTicket.spot.spotId}`
+  `Bike parked | Ticket: ${bikeTicket.ticketId} | Spot: ${bikeTicket.spot.spotId}`,
 );
 
 const carTicket = parkingLot.parkVehicle(car);
 console.log(
-  `Car parked | Ticket: ${carTicket.ticketId} | Spot: ${carTicket.spot.spotId}`
+  `Car parked | Ticket: ${carTicket.ticketId} | Spot: ${carTicket.spot.spotId}`,
 );
 
 const truckTicket = parkingLot.parkVehicle(truck);
 console.log(
-  `Truck parked | Ticket: ${truckTicket.ticketId} | Spot: ${truckTicket.spot.spotId}`
+  `Truck parked | Ticket: ${truckTicket.ticketId} | Spot: ${truckTicket.spot.spotId}`,
 );
 
 // 6️⃣ Unpark a vehicle
-console.log("---- Unparking Vehicle ----");
+console.log('---- Unparking Vehicle ----');
 
 parkingLot.unparkVehicle(carTicket);
 console.log(`Car with ticket ${carTicket.ticketId} has exited`);

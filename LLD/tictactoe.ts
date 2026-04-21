@@ -31,15 +31,15 @@
  ***********************************************************************/
 
 enum GameSymbol {
-  X = "X",
-  O = "O",
-  EMPTY = "_",
+  X = 'X',
+  O = 'O',
+  EMPTY = '_',
 }
 
 enum GameStatus {
-  IN_PROGRESS = "IN_PROGRESS",
-  WON = "WON",
-  DRAW = "DRAW",
+  IN_PROGRESS = 'IN_PROGRESS',
+  WON = 'WON',
+  DRAW = 'DRAW',
 }
 
 /***********************************************************************
@@ -55,7 +55,7 @@ enum GameStatus {
 class Player {
   constructor(
     public readonly name: string,
-    public readonly symbol: GameSymbol
+    public readonly symbol: GameSymbol,
   ) {}
 }
 
@@ -76,7 +76,7 @@ class Board {
 
   constructor(private readonly size: number = 3) {
     this.grid = Array.from({ length: size }, () =>
-      Array.from({ length: size }, () => GameSymbol.EMPTY)
+      Array.from({ length: size }, () => GameSymbol.EMPTY),
     );
   }
 
@@ -101,8 +101,8 @@ class Board {
 
   // Check if board is completely filled
   isFull(): boolean {
-    return this.grid.every(row =>
-      row.every(cell => cell !== GameSymbol.EMPTY)
+    return this.grid.every((row) =>
+      row.every((cell) => cell !== GameSymbol.EMPTY),
     );
   }
 
@@ -114,9 +114,9 @@ class Board {
   // Display board (for demo / debugging)
   printBoard(): void {
     for (const row of this.grid) {
-      console.log(row.join(" | "));
+      console.log(row.join(' | '));
     }
-    console.log("-------------");
+    console.log('-------------');
   }
 }
 
@@ -151,7 +151,7 @@ class StandardWinningStrategy implements WinningStrategy {
 
     // Check rows
     for (let i = 0; i < size; i++) {
-      if (grid[i].every(cell => cell === symbol)) return true;
+      if (grid[i].every((cell) => cell === symbol)) return true;
     }
 
     // Check columns
@@ -195,25 +195,21 @@ class TicTacToeGame {
   constructor(
     private readonly players: Player[],
     private readonly board: Board,
-    private readonly winningStrategy: WinningStrategy
+    private readonly winningStrategy: WinningStrategy,
   ) {}
 
   // Make a move for current player
   makeMove(row: number, col: number): void {
     if (this.status !== GameStatus.IN_PROGRESS) {
-      throw new Error("Game has already ended");
+      throw new Error('Game has already ended');
     }
 
     const currentPlayer = this.players[this.currentPlayerIndex];
 
-    const success = this.board.placeGameSymbol(
-      row,
-      col,
-      currentPlayer.symbol
-    );
+    const success = this.board.placeGameSymbol(row, col, currentPlayer.symbol);
 
     if (!success) {
-      throw new Error("Invalid move");
+      throw new Error('Invalid move');
     }
 
     this.board.printBoard();
@@ -228,7 +224,7 @@ class TicTacToeGame {
     // Check draw
     if (this.board.isFull()) {
       this.status = GameStatus.DRAW;
-      console.log("Game ended in a draw");
+      console.log('Game ended in a draw');
       return;
     }
 
@@ -246,19 +242,15 @@ class TicTacToeGame {
  ***********************************************************************/
 
 // Create players
-const player1 = new Player("Alice", GameSymbol.X);
-const player2 = new Player("Bob", GameSymbol.O);
+const player1 = new Player('Alice', GameSymbol.X);
+const player2 = new Player('Bob', GameSymbol.O);
 
 // Create board and strategy
 const board = new Board(3);
 const winningStrategy = new StandardWinningStrategy();
 
 // Create game
-const game = new TicTacToeGame(
-  [player1, player2],
-  board,
-  winningStrategy
-);
+const game = new TicTacToeGame([player1, player2], board, winningStrategy);
 
 // Simulate moves
 game.makeMove(0, 0); // Alice

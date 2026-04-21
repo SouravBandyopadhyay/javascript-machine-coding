@@ -60,9 +60,9 @@ const lru = new LRUCache(2);
 lru.put(1, 1);
 lru.put(2, 2);
 console.log(lru.get(1)); // 1
-lru.put(3, 3);          // evicts key 2
+lru.put(3, 3); // evicts key 2
 console.log(lru.get(2)); // -1
-lru.put(4, 4);          // evicts key 1
+lru.put(4, 4); // evicts key 1
 console.log(lru.get(1)); // -1
 console.log(lru.get(3)); // 3
 console.log(lru.get(4)); // 4
